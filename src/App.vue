@@ -1,28 +1,53 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app id="inspire">
+    <!-- 네비게이션  -->
+    <v-navigation-drawer v-model="drawer" app clipped>
+      <v-list dense nav>
+        <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    
+    <!-- 상단 메뉴 -->
+    <v-app-bar 
+      app 
+      clipped-left 
+      color="indigo" dark>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Application</v-toolbar-title>
+    </v-app-bar>
+
+    <v-main>
+      <HelloWorld/>
+    </v-main>
+
+    <v-footer app>
+      <span>&copy; 2023</span>
+    </v-footer>
+
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  components : {HelloWorld},
+  data: () => ({
+    drawer: null,
+    items: [
+      { title: 'Dashboard', icon: 'mdi-view-dashboard' },
+      { title: 'Photos', icon: 'mdi-image' },
+      { title: 'About', icon: 'mdi-help-box' },
+    ],
+  }),
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
